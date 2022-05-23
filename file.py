@@ -1,3 +1,5 @@
+import numpy as np
+
 def greeter(func):
     def decorating(*args, **kwargs):
         name = str(func(*args, **kwargs)).title()
