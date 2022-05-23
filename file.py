@@ -1,5 +1,3 @@
-import numpy as np
-
 def greeter(func):
     def decorating(*args, **kwargs):
         name = str(func(*args, **kwargs)).title()
@@ -10,7 +8,12 @@ def greeter(func):
 def sums_of_str_elements_are_equal(func):
     def decorating(*args, **kwargs):
         numbersLst = str(func(*args, **kwargs)).split()
-        sign_of_the_number = [np.sign(i) for i in [int(i) for i in numbersLst]]
+        sign_of_the_number = []
+        for i in [int(i) for i in numbersLst]:
+            if i>=0:
+                sign_of_the_number.append(1)
+            else:
+                sign_of_the_number.append(-1)
 
         sum1 = sum([int(n) for n in str(numbersLst[0]) if n.isdigit()])*sign_of_the_number[0]
         sum2 = sum([int(n) for n in str(numbersLst[1]) if n.isdigit()])*sign_of_the_number[1]
