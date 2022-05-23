@@ -28,18 +28,26 @@ def sums_of_str_elements_are_equal(func):
 
 def format_output(*required_keys):
     def decorator_function(func_to_be_decorated):
-        def decoration():
-            result_dict = func_to_be_decorated()
+        def decoration(*args, **kwargs):
+            result_dict = func_to_be_decorated(*args, **kwargs)
 
             output_dict = {}
+            for key in required_keys:
+                output_dict[key] = ""
+
             for r_key in required_keys:
                 temp_list = []
+                temp_len = 0
                 for sub_key in str(r_key).split("__"):
                     if sub_key in dict(result_dict).keys():
+                        temp_len += len(result_dict[sub_key])
                         temp_list.append(result_dict[sub_key])
                     else:
                         raise ValueError("Nope")
-                output_dict[r_key] = " ".join(temp_list)
+                if temp_len == 0:
+                    output_dict[r_key] = "Empty value"
+                else:
+                    output_dict[r_key] = " ".join(temp_list)
 
             return output_dict
         return decoration
