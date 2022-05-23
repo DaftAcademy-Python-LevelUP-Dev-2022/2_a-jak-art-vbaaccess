@@ -1,6 +1,7 @@
 def greeter(func):
     def decorating():
-        return 'Aloha ' + func()
+        name = str(func()).title()
+        return 'Aloha ' + name
     return decorating
 
 
