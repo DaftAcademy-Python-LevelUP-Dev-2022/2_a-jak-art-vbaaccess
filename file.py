@@ -21,7 +21,23 @@ def sums_of_str_elements_are_equal(func):
 
 
 def format_output(*required_keys):
-    pass
+    def decorator_function(func_to_be_decorated):
+        def decoration():
+            result_dict = func_to_be_decorated()
+
+            output_dict = {}
+            for r_key in required_keys:
+                temp_list = []
+                for sub_key in str(r_key).split("__"):
+                    if sub_key in dict(result_dict).keys():
+                        temp_list.append(result_dict[sub_key])
+                    else:
+                        raise ValueError("Nope")
+                output_dict[r_key] = " ".join(temp_list)
+
+            return output_dict
+        return decoration
+    return decorator_function
 
 
 def add_method_to_instance(klass):
