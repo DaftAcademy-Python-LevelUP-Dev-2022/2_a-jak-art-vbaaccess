@@ -1,13 +1,13 @@
 def greeter(func):
-    def decorating():
-        name = str(func()).title()
+    def decorating(*args, **kwargs):
+        name = str(func(*args, **kwargs)).title()
         return 'Aloha ' + name
     return decorating
 
 
 def sums_of_str_elements_are_equal(func):
-    def decorating():
-        numbersLst = str(func()).split()
+    def decorating(*args, **kwargs):
+        numbersLst = str(func(*args, **kwargs)).split()
         sign_of_the_number = [np.sign(i) for i in [int(i) for i in numbersLst]]
 
         sum1 = sum([int(n) for n in str(numbersLst[0]) if n.isdigit()])*sign_of_the_number[0]
