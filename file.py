@@ -1,3 +1,5 @@
+from functools import wraps
+
 def greeter(func):
     def decorating(*args, **kwargs):
         name = str(func(*args, **kwargs)).title()
@@ -55,4 +57,10 @@ def format_output(*required_keys):
 
 
 def add_method_to_instance(klass):
-    pass
+    def decorator_function(func_to_be_decorated):
+        @wraps(func_to_be_decorated)
+        def wrapper(self, *args, **kwargs):
+            return func_to_be_decorated(*args, **kwargs)
+        setattr(klass, func_to_be_decorated.__name__, wrapper)
+        return func_to_be_decorated
+    return decorator_function
